@@ -7,9 +7,9 @@ export const FloorplanViewer = ({ jsonData }) => {
 
   return (
     <svg
-      width="1000"
-      height="1000"
-      viewBox="-500 -500 1000 1000"
+      width="300"
+      height="300"
+      viewBox="-150 -150 300 300"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g transform="scale(1, -1)">
