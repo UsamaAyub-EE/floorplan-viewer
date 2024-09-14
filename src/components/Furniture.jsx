@@ -1,11 +1,22 @@
-const Furniture = ({ furnitures }) => {
-  const [hoveredEquip, setHoveredEquip] = React.useState(null);
+import { useState } from "react";
+
+export const Furniture = ({ furnitures }) => {
+  const [hoveredEquip, setHoveredEquip] = useState(null);
+
+  const handleMouseEnter = (furniture) => {
+    setHoveredEquip(furniture.equipName);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredEquip(null);
+  };
 
   return (
     <>
       {furnitures.map((furniture, index) => {
         const width = furniture.MaxBound.X - furniture.MinBound.X;
         const height = furniture.MaxBound.Y - furniture.MinBound.Y;
+        const rotationInDegrees = furniture.rotation * (180 / Math.PI);
 
         return (
           <rect
@@ -14,14 +25,15 @@ const Furniture = ({ furnitures }) => {
             y={furniture.yPlacement}
             width={width}
             height={height}
-            transform={`rotate(${furniture.rotation}, ${furniture.xPlacement}, ${furniture.yPlacement})`}
-            fill="gray"
-            onMouseEnter={() => setHoveredEquip(furniture.equipName)}
-            onMouseLeave={() => setHoveredEquip(null)}
-          />
+            transform={`rotate(${rotationInDegrees}, ${furniture.xPlacement}, ${furniture.yPlacement})`}
+            fill="orange"
+            onMouseEnter={(e) => handleMouseEnter(furniture, e)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <title>{hoveredEquip}</title>
+          </rect>
         );
       })}
-      {hoveredEquip && <div className="tooltip">{hoveredEquip}</div>}
     </>
   );
 };
